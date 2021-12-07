@@ -1,50 +1,50 @@
 swagger: '2.0'
 info:
-  description: Simple API to verify Number
-  title: Num Verify
-  version: v2
-  termsOfService: "https://numverify.com/"
+  description: Simple Currency Conversion API
+  title: Currency Conversion
+  version: v1
+  termsOfService: 
   contact:
-    email: "amit.a.panther@gmail.com"
+    email: 
   license:
     name: "Apache 2.0"
-    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+    url: 
   
-host: apilayer.net
+host: api.exchangerate.host
 schemes:
   - http
-basePath: /api
+basePath: /
   
 paths:
-  /validate:
+  /convert:
     get:
-      summary: Validate Phone
+      summary: Get conversion paramenters
       parameters:
         - in: query
           name: access_key
           type: string
-          required: true
+          required: false
         - in: query
-          name: number
+          name: from
           required: true
           type: string
-          default: 9807654321
+          default: USD
         - in: query
-          name: format
+          name: to
+          required: true
+          type: string
+          default: CAD
+        - in: query
+          name: amount
           required: true
           type: number
           default: 1
-        - in: query
-          name: country_code
-          required: true
-          type: string
-          default: IN
           
       responses:
         '200':
           description: Success Responses
           schema:
-            $ref: '#/definitions/phone'
+            $ref: '#/definitions/conversion'
         '400':
           description: needs access token
           schema:
@@ -63,24 +63,30 @@ paths:
                   }
                   
 definitions:
-  phone:
+  conversion:
     type: object
     properties:
-      valid:
+      success:
         type: boolean
         example: true
-      number:
+      from:
         type: string
-        example: 14158586273
-      international_format:
+        example: USD
+      to:
         type: string
-        example: +14158586273
-      carrier:
+        example: CAN
+      amount:
+        type: number
+        example: 1
+      date:
         type: string
-        example: AT&T Mobility LLC
-      line_type:
-        type: string
-        example: mobile
+        example: 2021-12-07
+      result:
+        type: number
+        example: 1.274114
+       rate:
+        type: number
+        example: 1.274114  
       error:
         type: object
         properties:
@@ -95,5 +101,5 @@ definitions:
             example: "You have not supplied a valid API Access Key. [Technical Support: support@apilayer.com]"
 
 externalDocs:
-  description: "Find out more about NumVerify API"
-  url: "https://numverify.com/"
+  description: 
+  url: 
